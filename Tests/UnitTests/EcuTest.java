@@ -9,12 +9,6 @@ import static org.junit.Assert.*;
 
 public class EcuTest {
 
-    private PropertyChangeSupport propChangeSupp;
-
-    public final static String SOFTWARE_PROPERTY_NAME = "swId";
-    public final static String SUBSOFTWARE_PROPERTY_NAME = "subSwId";
-    public final static String ECUID_PROPERTY_NAME = "ecuId";
-
     private Ecu ecu;
 
     public EcuTest() {
@@ -23,10 +17,13 @@ public class EcuTest {
 
     @Test
     public void testAddPropertyChangeListener() {
+        //Hvordan uten getter?
+
     }
 
     @Test
     public void testRemovePropertyChangeListener() {
+        //Hvordan uten getter?
     }
 
     @Test
@@ -42,37 +39,51 @@ public class EcuTest {
 
     @Test
     public void testGetSwId() {
+        assertEquals(1, ecu.getSwId());
     }
 
     @Test
     public void testSetSwId() {
+        ecu.setSwId(2);
+        assertEquals(2, ecu.getSwId());
     }
 
     @Test
     public void testGetSubSwId() {
+        assertEquals(2, ecu.getSubSwId());
     }
 
     @Test
     public void testSetSubSwId() {
+        ecu.setSubSwId(3);
+        assertEquals(3, ecu.getSubSwId());
     }
 
     @Test
     public void testIsNewest() {
+        assertTrue(ecu.isNewest());
     }
 
     @Test
     public void testSetNewest() {
+        ecu.setNewest(false);
+        assertFalse(ecu.isNewest());
     }
 
     @Test
     public void testGetECUID_PROPERTY_NAME() {
+        assertEquals("ecuId", Ecu.getECUID_PROPERTY_NAME());
+        assertEquals(Ecu.ECUID_PROPERTY_NAME, Ecu.getECUID_PROPERTY_NAME());
     }
 
     @Test
     public void testGetNewestSub() {
+        assertEquals(3, ecu.getNewestSub());
     }
 
     @Test
     public void testSetNewestSub() {
+        ecu.setNewestSub(4);
+        assertEquals(4, ecu.getNewestSub());
     }
 }
