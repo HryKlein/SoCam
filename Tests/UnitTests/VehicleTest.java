@@ -21,62 +21,67 @@ public class VehicleTest {
     }
 
     @Test
-    public void testgetEcuCount() {
-
+    public void testGetEcuCount() {
+        assertEquals(1, veh.getEcuCount());
     }
 
     @Test
-    public void testgetEcu() {
+    public void testGetEcu() {
+        assertEquals(ecu, veh.getEcu(0));
     }
 
     @Test
-    public void testaddEcu() {
+    public void testAddEcu() {
         Ecu ecu2 = new Ecu(2);
         veh.addEcu(ecu2);
         assertEquals(2, veh.getEcuCount());
+        assertEquals(ecu2, veh.getEcu(1));
     }
 
     @Test
-    public void testremoveEcu() {
+    public void testRemoveEcu() {
+        assertEquals(1, veh.getEcuCount());
+        veh.removeEcu(ecu);
+        assertEquals(0, veh.getEcuCount());
     }
 
     @Test
-    public void testgetLargestEcuId() {
+    public void testGetLargestEcuId() {
     }
 
     @Test
-    public void testgetVehicleID() {
+    public void testGetVehicleID() {
     }
 
     @Test
-    public void testfindDot() {
+    public void testFindDot() {
     }
 
     @Test
-    public void testsetVehicleID() {
+    public void testSetVehicleID() {
     }
 
     @Test
-    public void testgetHistoryLog() {
+    public void testGetHistoryLog() {
     }
 
     @Test
-    public void testsetHistoryLog() {
+    public void testSetHistoryLog() {
     }
 
     @Test
-    public void testgetEcus() {
+    public void testGetEcus() {
     }
 
     @Test
-    public void testsetEcus() {
+    public void testSetEcus() {
     }
 
     @Test
-    public void testgetSeries() {
+    public void testGetSeries() {
     }
 
     @Test
-    public void testsetSeries() {
+    public void testSetSeries() {
     }
 }
