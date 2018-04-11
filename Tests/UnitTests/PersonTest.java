@@ -38,6 +38,9 @@ public class PersonTest {
     @Test
     public void testGetId() {
         //Hvordan teste denne? Går jo på current time..
+
+        //Holder dette? Evt. finnes det f.eks. noen måte å teste at den er unik på?
+        assertFalse(p.getId() < 0);
     }
 
     @Test
