@@ -29,6 +29,7 @@ Log/
 FactoryDB/
 GarageDB/
 InsertTestDataFactoryDb/
- InsertTestDataGarageDb/
+InsertTestDataGarageDb/
  
 *.iml
+settings.xml
