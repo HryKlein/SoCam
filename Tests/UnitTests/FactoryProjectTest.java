@@ -1,9 +1,6 @@
 package UnitTests;
 
-import no.ntnu.fp.model.Ecu;
-import no.ntnu.fp.model.FactoryProject;
-import no.ntnu.fp.model.SimpleEcu;
-import no.ntnu.fp.model.Vehicle;
+import no.ntnu.fp.model.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,11 +11,12 @@ import static org.junit.Assert.*;
 public class FactoryProjectTest {
     
     ArrayList<Vehicle> vehicleList;
-    ArrayList<String> softwareList; // to be edited to list of SW?
+    ArrayList<Software> softwareList; // to be edited to list of SW?
     ArrayList<SimpleEcu> ecuList;
     SimpleEcu simpleEcu1, simpleEcu2;
     Ecu ecu1, ecu2;
     Vehicle vehicle1, vehicle2;
+    Software software1, software2;
 
     private FactoryProject f;
     public FactoryProjectTest(){
@@ -27,16 +25,18 @@ public class FactoryProjectTest {
         simpleEcu2 = new SimpleEcu(002);
         ecu1 = new Ecu(01);
         ecu2 = new Ecu(02);
+        software1 = new Software(11,01,"www.software1.pizza");
+        software1 = new Software(22,02,"www.software1.pizza");
 
         vehicle1 = new Vehicle("ABCD01","This is the history log of the LADA", new ArrayList(Arrays.asList(ecu1,ecu2)), "LADA");
-        vehicle2 = new Vehicle("ABCD02","This is the history log of the BMW", new ArrayList(Arrays.asList(ecu1,ecu2)), "BMW");
+        vehicle2 = new Vehicle("EFGH02","This is the history log of the BMW", new ArrayList(Arrays.asList(ecu1,ecu2)), "BMW");
 
         vehicleList = new ArrayList();
         softwareList = new ArrayList();
         ecuList = new ArrayList();
 
         vehicleList.addAll(Arrays.asList(vehicle1, vehicle2));
-        softwareList.addAll(Arrays.asList("IBM", "Macrosoft"));
+        softwareList.addAll(Arrays.asList(software1, software2));
         ecuList.addAll(Arrays.asList(simpleEcu1, simpleEcu2));
 
         f = new FactoryProject(vehicleList, softwareList, ecuList);
@@ -55,15 +55,15 @@ public class FactoryProjectTest {
     }
 
     @Test
-    public void testGetSoftware() {
+    public void testGetSoftware() { assertEquals(software1, (Software) f.getSoftware(0));
     }
 
     @Test
-    public void testGetEcuCount() {
+    public void testGetEcuCount() { assertEquals(2, f.getEcuCount());
     }
 
     @Test
-    public void testGetLatestSoftware() {
+    public void testGetLatestSoftware() { assertEquals(software2, (Software) f.getSoftware(1));
     }
 
     @Test
@@ -71,23 +71,25 @@ public class FactoryProjectTest {
     }
 
     @Test
-    public void testGetLatestEcu() {
+    public void testGetLatestEcu() { assertEquals(simpleEcu2, (SimpleEcu)f.getLatestEcu());
     }
 
     @Test
     public void testGetSoftwareIndex() {
+        assertEquals(0, f.getSoftwareIndex(software1));
     }
 
     @Test
-    public void testGetEcu() {
+    public void testGetEcu() {  assertEquals(simpleEcu1, (SimpleEcu) f.getEcu(0));
+    }
+
+    // Bug here? .contains in getVehicleIndex questionable?
+    @Test
+    public void testGetVehicleIndex() { assertEquals(0, f.getVehicleIndex("ABCD"));
     }
 
     @Test
-    public void testGetVehicleIndex() {
-    }
-
-    @Test
-    public void testIndexOf() {
+    public void testIndexOf() { assertEquals(0, f.indexOf(vehicle1));
     }
 
     @Test
