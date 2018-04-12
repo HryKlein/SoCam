@@ -26,7 +26,7 @@ public class FactoryProjectTest {
         ecu1 = new Ecu(01);
         ecu2 = new Ecu(02);
         software1 = new Software(11,01,"www.software1.pizza");
-        software1 = new Software(22,02,"www.software1.pizza");
+        software2 = new Software(22,02,"www.software2.pizza");
 
         vehicle1 = new Vehicle("ABCD01","This is the history log of the LADA", new ArrayList(Arrays.asList(ecu1,ecu2)), "LADA");
         vehicle2 = new Vehicle("EFGH02","This is the history log of the BMW", new ArrayList(Arrays.asList(ecu1,ecu2)), "BMW");
@@ -98,18 +98,29 @@ public class FactoryProjectTest {
 
     @Test
     public void testAddVehicle() {
+        Vehicle vehicle3 = new Vehicle("IJKL03", "This is the history log of the SEAT", new ArrayList(Arrays.asList(ecu1, ecu2)), "SEAT");
+        f.addVehicle(vehicle3);
+        assertEquals(vehicle3, f.getVehicle(2));
     }
 
     @Test
     public void testAddSoftware() {
+        Software software3 = new Software(33,03,"www.software3.pizza");
+        f.addSoftware(software3);
+        assertEquals(software3, f.getSoftware(2));
     }
 
     @Test
     public void testAddEcu() {
+        SimpleEcu simpleEcu3 =  new SimpleEcu(003);;
+        f.addEcu(simpleEcu3);
+        assertEquals(simpleEcu3, f.getEcu(2));
     }
 
     @Test
     public void testRemoveVehicle() {
+        f.removeVehicle(vehicle2);
+        assertEquals(1, f.getVehicleCount() );
     }
 
     @Test
