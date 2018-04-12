@@ -93,4 +93,11 @@ public class PersonTest {
         p.setCustId(3);
         assertEquals(3, p.getCustId());
     }
+
+    @Test
+    public void testEquals() {
+        Person p2 = new Person(2, "name", "email", "street", "city", "2");
+        Person p3 = new Person(3, "navn", "email", "street", "city", "2");
+        assertFalse(p2.equals(p3));
+    }
 }
