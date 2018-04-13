@@ -3,6 +3,8 @@ package UnitTests;
 import no.ntnu.fp.model.Ecu;
 import no.ntnu.fp.model.Vehicle;
 import org.junit.Test;
+
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -141,6 +143,12 @@ public class VehicleTest {
         veh2.addEcu(ecu);
         assertTrue(it.hasNext());
 
+    }
+
+    @Test
+    public void testPropertyChanged(){
+        PropertyChangeEvent e = new PropertyChangeEvent(new Object(),"", new Object(), new Object());
+        veh.propertyChange(e);
     }
 
 }
