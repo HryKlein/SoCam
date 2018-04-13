@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class FactoryProjectTest {
     
     ArrayList<Vehicle> vehicleList;
-    ArrayList<Software> softwareList; // to be edited to list of SW?
+    ArrayList<Software> softwareList;
     ArrayList<SimpleEcu> ecuList;
     SimpleEcu simpleEcu1, simpleEcu2;
     Ecu ecu1, ecu2;
@@ -28,8 +28,10 @@ public class FactoryProjectTest {
         software1 = new Software(11,01,"www.software1.pizza");
         software2 = new Software(22,02,"www.software2.pizza");
 
-        vehicle1 = new Vehicle("ABCD01","This is the history log of the LADA", new ArrayList(Arrays.asList(ecu1,ecu2)), "LADA");
-        vehicle2 = new Vehicle("EFGH02","This is the history log of the BMW", new ArrayList(Arrays.asList(ecu1,ecu2)), "BMW");
+        vehicle1 = new Vehicle("ABCD01","This is the history log of the LADA",
+                new ArrayList(Arrays.asList(ecu1,ecu2)), "LADA");
+        vehicle2 = new Vehicle("EFGH02","This is the history log of the BMW",
+                new ArrayList(Arrays.asList(ecu1,ecu2)), "BMW");
 
         vehicleList = new ArrayList();
         softwareList = new ArrayList();
@@ -98,7 +100,8 @@ public class FactoryProjectTest {
 
     @Test
     public void testAddVehicle() {
-        Vehicle vehicle3 = new Vehicle("IJKL03", "This is the history log of the SEAT", new ArrayList(Arrays.asList(ecu1, ecu2)), "SEAT");
+        Vehicle vehicle3 = new Vehicle("IJKL03", "This is the history log of the SEAT",
+                new ArrayList(Arrays.asList(ecu1, ecu2)), "SEAT");
         f.addVehicle(vehicle3);
         assertEquals(vehicle3, f.getVehicle(2));
     }
@@ -119,8 +122,9 @@ public class FactoryProjectTest {
 
     @Test
     public void testRemoveVehicle() {
+        int oldCount = f.getVehicleCount();
         f.removeVehicle(vehicle2);
-        assertEquals(1, f.getVehicleCount() );
+        assertEquals(oldCount-1, f.getVehicleCount());
     }
 
     @Test
@@ -137,6 +141,14 @@ public class FactoryProjectTest {
 
     @Test
     public void testEquals() {
+        ArrayList<Vehicle> vehicleList2 = new ArrayList();
+        ArrayList<SimpleEcu> ecuList2 = new ArrayList();
+        ArrayList<Software> softwareList2 = new ArrayList();
+        vehicleList2.add(vehicle1);
+        ecuList2.add(simpleEcu1);
+        softwareList2.add(software1);
+        FactoryProject f2 = new FactoryProject(vehicleList2, softwareList2, ecuList2);
+        assertFalse(f.equals(f2));
     }
 
     //@Test
