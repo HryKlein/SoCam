@@ -37,9 +37,6 @@ public class PersonTest {
 
     @Test
     public void testGetId() {
-        //Hvordan teste denne? Går jo på current time..
-
-        //Holder dette? Evt. finnes det f.eks. noen måte å teste at den er unik på?
         assertFalse(p.getId() < 0);
     }
 
@@ -96,8 +93,15 @@ public class PersonTest {
 
     @Test
     public void testEquals() {
+        Person p1 = new Person(2, "name", "email", "street", "city", "2");
         Person p2 = new Person(2, "name", "email", "street", "city", "2");
         Person p3 = new Person(3, "navn", "email", "street", "city", "2");
+        Person p4 = new Person(2, "name", "emayl", "street", "city", "2");
+        Person p5 = new Person(3, "name", "email", "streit", "city", "2");
+
+        assertFalse(p2.equals(p4));
         assertFalse(p2.equals(p3));
+        assertFalse(p2.equals(p5));
+        assertTrue(p2.equals(p1));
     }
 }
