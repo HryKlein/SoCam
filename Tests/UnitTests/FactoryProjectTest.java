@@ -3,8 +3,10 @@ package UnitTests;
 import no.ntnu.fp.model.*;
 import org.junit.Test;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
@@ -43,7 +45,16 @@ public class FactoryProjectTest {
 
         f = new FactoryProject(vehicleList, softwareList, ecuList);
 
+        assertNotEquals(null,f);
     }
+
+    @Test
+    public void testFactoryProjectTest2() { assertEquals(2, f.getVehicleCount());
+        FactoryProject f2 = new FactoryProject();
+
+        assertNotEquals(null,f2);
+    }
+
     @Test
     public void testGetVehicleCount() { assertEquals(2, f.getVehicleCount());
     }
@@ -65,7 +76,7 @@ public class FactoryProjectTest {
     }
 
     @Test
-    public void testGetLatestSoftware() { assertEquals(software2, (Software) f.getSoftware(1));
+    public void testGetLatestSoftware() { assertEquals(software2, (Software) f.getLatestSoftware());
     }
 
     @Test
@@ -77,8 +88,7 @@ public class FactoryProjectTest {
     }
 
     @Test
-    public void testGetSoftwareIndex() {
-        assertEquals(0, f.getSoftwareIndex(software1));
+    public void testGetSoftwareIndex() { assertEquals(0, f.getSoftwareIndex(software1));
     }
 
     @Test
@@ -87,7 +97,9 @@ public class FactoryProjectTest {
 
     // Bug here? .contains in getVehicleIndex questionable?
     @Test
-    public void testGetVehicleIndex() { assertEquals(0, f.getVehicleIndex("ABCD"));
+    public void testGetVehicleIndex() {
+        assertEquals(0, f.getVehicleIndex("ABCD"));
+        assertEquals(-1, f.getVehicleIndex("UnknownString"));
     }
 
     @Test
@@ -96,6 +108,9 @@ public class FactoryProjectTest {
 
     @Test
     public void testIterator() {
+        Iterator i = f.iterator();
+
+        assertNotSame(i, f.iterator());
     }
 
     @Test
@@ -103,6 +118,7 @@ public class FactoryProjectTest {
         Vehicle vehicle3 = new Vehicle("IJKL03", "This is the history log of the SEAT",
                 new ArrayList(Arrays.asList(ecu1, ecu2)), "SEAT");
         f.addVehicle(vehicle3);
+
         assertEquals(vehicle3, f.getVehicle(2));
     }
 
@@ -110,6 +126,7 @@ public class FactoryProjectTest {
     public void testAddSoftware() {
         Software software3 = new Software(33,03,"www.software3.pizza");
         f.addSoftware(software3);
+
         assertEquals(software3, f.getSoftware(2));
     }
 
@@ -117,6 +134,7 @@ public class FactoryProjectTest {
     public void testAddEcu() {
         SimpleEcu simpleEcu3 =  new SimpleEcu(003);;
         f.addEcu(simpleEcu3);
+
         assertEquals(simpleEcu3, f.getEcu(2));
     }
 
@@ -124,6 +142,7 @@ public class FactoryProjectTest {
     public void testRemoveVehicle() {
         int oldCount = f.getVehicleCount();
         f.removeVehicle(vehicle2);
+
         assertEquals(oldCount-1, f.getVehicleCount());
     }
 
@@ -137,6 +156,11 @@ public class FactoryProjectTest {
 
     @Test
     public void testPropertyChange() {
+        PropertyChangeEvent e = new PropertyChangeEvent(new Object(),"", new Object(), new Object());
+        f.propertyChange(e);
+        f.addPropertyChangeListener(null);
+        f.removePropertyChangeListener(null);
+        assertEquals(1,1);
     }
 
     @Test
@@ -148,10 +172,17 @@ public class FactoryProjectTest {
         ecuList2.add(simpleEcu1);
         softwareList2.add(software1);
         FactoryProject f2 = new FactoryProject(vehicleList2, softwareList2, ecuList2);
+
         assertFalse(f.equals(f2));
+        assertFalse(f2.equals(f));
+
+        FactoryProject f3 = new FactoryProject(vehicleList, softwareList, ecuList);
+        assertTrue(f.equals(f3));
     }
 
-    //@Test
-    //public void toString() {
-    //}
+    @Test
+    public void testToString() {
+        String[] strings = f.toString().split("\n");
+        assertEquals("project:", strings[0]);
+    }
 }
