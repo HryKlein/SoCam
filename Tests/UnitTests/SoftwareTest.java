@@ -14,11 +14,10 @@ public class SoftwareTest {
     }
 
     @Test
-    public void testAddPropertyChangeListener() {
-    }
-
-    @Test
     public void testRemovePropertyChangeListener() {
+        sw.removePropertyChangeListener(null);
+
+        assertTrue(true);
     }
 
     @Test
@@ -52,5 +51,14 @@ public class SoftwareTest {
     public void testSetUrl() {
         sw.setUrl("vg.no");
         assertEquals("vg.no", sw.getUrl());
+    }
+
+    @Test
+    public void testEmptyConstructor(){
+        Software s = new Software();
+
+        assertEquals(0, s.getSwVersion());
+        assertEquals(0, s.getMinorVersion());
+        assertEquals("", s.getUrl());
     }
 }
