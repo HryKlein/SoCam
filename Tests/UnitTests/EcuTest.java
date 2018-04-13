@@ -16,17 +16,6 @@ public class EcuTest {
     }
 
     @Test
-    public void testAddPropertyChangeListener() {
-        //Hvordan uten getter?
-
-    }
-
-    @Test
-    public void testRemovePropertyChangeListener() {
-        //Hvordan uten getter?
-    }
-
-    @Test
     public void testGetEcuId() {
         assertEquals(0, ecu.getEcuId());
     }
@@ -85,5 +74,37 @@ public class EcuTest {
     public void testSetNewestSub() {
         ecu.setNewestSub(4);
         assertEquals(4, ecu.getNewestSub());
+    }
+
+    @Test
+    public void testFirstConstructor() {
+        int ecuID = 1;
+        Ecu e1 = new Ecu(ecuID);
+
+        assertEquals(ecuID, e1.getEcuId());
+        assertEquals(0, e1.getSwId());
+        assertEquals(0, e1.getSubSwId());
+    }
+
+    @Test
+    public void testSecondConstructor() {
+        int ecuID = 1;
+        int swID = 2;
+        int sub = 3;
+        Ecu e2 = new Ecu(ecuID, swID, sub);
+
+        assertEquals(ecuID, e2.getEcuId());
+        assertEquals(swID, e2.getSwId());
+        assertEquals(sub, e2.getSubSwId());
+    }
+
+    @Test public void testThirdConstructor(){
+        Ecu e3 = ecu = new Ecu(0, 1, 2, true, 3);
+
+        assertEquals(0, e3.getEcuId());
+        assertEquals(1, e3.getSwId());
+        assertEquals(2, e3.getSubSwId());
+        assertEquals(3, e3.getNewestSub());
+        assertEquals(true, e3.isNewest());
     }
 }
