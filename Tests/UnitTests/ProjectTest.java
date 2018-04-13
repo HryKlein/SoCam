@@ -4,6 +4,7 @@ import no.ntnu.fp.model.Person;
 import no.ntnu.fp.model.Project;
 import org.junit.Test;
 
+import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
@@ -61,13 +62,20 @@ public class ProjectTest {
     }
 
     @Test
-    public void testGetPersonIndexByVehicleId() {
-        Person p = new Person(custId, name, email, street, city, vehicleId);
-        project.addPerson(p);
-
-        assertFalse(project.getPersonIndex(p.getVehicleID()).equals(0)); //Wrong input type, bug in code
-
+    public void testGetPersonIndexByVehicleIdWhenNoHit() {
         assertEquals(-1, project.getPersonIndex(5));
+    }
+
+    @Test
+    public void testGetPersonIndexByVehicleIdWhenHit() {
+        Project proj = new Project();
+        Person p = new Person(custId, name, email, street, city, vehicleId);
+        proj.addPerson(p);
+
+        int expectedId = 0;
+        int actualId = proj.getPersonIndex(1);
+
+        assertEquals(expectedId, actualId);
     }
 
     @Test
@@ -113,16 +121,13 @@ public class ProjectTest {
     }
 
     @Test
-    public void testAddPropertyChangeListener() {
-
-    }
-
-    @Test
-    public void testRemovePropertyChangeListener() {
-    }
-
-    @Test
     public void testPropertyChange() {
+        PropertyChangeEvent e = new PropertyChangeEvent(new Object(),"", new Object(), new Object());
+        project.propertyChange(e);
+        project.addPropertyChangeListener(null);
+        project.removePropertyChangeListener(null);
+
+        assertTrue(true);
     }
 
     @Test
@@ -134,6 +139,19 @@ public class ProjectTest {
         assertFalse(project2.equals(p));
         project2.addPerson(p);
         assertTrue(project.equals(project2));
+    }
+
+    @Test
+    public void testEquals2() {
+        Project project1 = new Project();
+        Project project2 = new Project();
+        Person p = new Person(-1, name, email, street, city, vehicleId);
+        Person p1 = new Person(-1, name, email, street, city, vehicleId);
+        project1.addPerson(p);
+        project2.addPerson(p1);
+
+
+        assertFalse(project1.equals(project2));
     }
 
     @Test
