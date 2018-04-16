@@ -2,7 +2,6 @@ package UnitTests;
 
 import no.ntnu.fp.model.*;
 import org.junit.Test;
-
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -147,14 +146,6 @@ public class FactoryProjectTest {
     }
 
     @Test
-    public void testAddPropertyChangeListener() {
-    }
-
-    @Test
-    public void testRemovePropertyChangeListener() {
-    }
-
-    @Test
     public void testPropertyChange() {
         PropertyChangeEvent e = new PropertyChangeEvent(new Object(),"", new Object(), new Object());
         f.propertyChange(e);
@@ -164,25 +155,48 @@ public class FactoryProjectTest {
     }
 
     @Test
-    public void testEquals() {
-        ArrayList<Vehicle> vehicleList2 = new ArrayList();
-        ArrayList<SimpleEcu> ecuList2 = new ArrayList();
-        ArrayList<Software> softwareList2 = new ArrayList();
-        vehicleList2.add(vehicle1);
-        ecuList2.add(simpleEcu1);
-        softwareList2.add(software1);
-        FactoryProject f2 = new FactoryProject(vehicleList2, softwareList2, ecuList2);
+    public void testEqualsWhenNotEqual() {
+        FactoryProject f2 = createFactoryProject(vehicle1, simpleEcu1, software1);
+        FactoryProject f3 = createFactoryProject(vehicle2, simpleEcu2, software2);
 
         assertFalse(f.equals(f2));
         assertFalse(f2.equals(f));
+        assertFalse(f2.equals(vehicle1));
+        assertFalse(f2.equals(f3));
+        assertFalse(f3.equals(f2));
+        f3.addVehicle(vehicle1);
+        assertFalse(f2.equals(f3));
+        assertFalse(f3.equals(f2));
+    }
 
-        FactoryProject f3 = new FactoryProject(vehicleList, softwareList, ecuList);
+    @Test
+    public void testEqualsWhenEqual() {
+        FactoryProject f3 = createFactoryProject(vehicle1, simpleEcu1, software1);
+        f3.addVehicle(vehicle2);
+        f3.addSoftware(software2);
+        f3.addEcu(simpleEcu2);
+
         assertTrue(f.equals(f3));
+        assertTrue(f.equals(f));
+
     }
 
     @Test
     public void testToString() {
         String[] strings = f.toString().split("\n");
         assertEquals("project:", strings[0]);
+    }
+
+    public FactoryProject createFactoryProject(Vehicle v, SimpleEcu se, Software sw) {
+        ArrayList<Vehicle> vL = new ArrayList();
+        ArrayList<SimpleEcu> seL = new ArrayList();
+        ArrayList<Software> sL = new ArrayList();
+
+        vL.add(v);
+        seL.add(se);
+        sL.add(sw);
+
+        FactoryProject fp = new FactoryProject(vL, sL, seL);
+        return fp;
     }
 }
