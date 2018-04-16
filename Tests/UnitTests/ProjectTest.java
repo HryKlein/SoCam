@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
-
 import static org.junit.Assert.*;
 
 public class ProjectTest {
@@ -131,27 +130,37 @@ public class ProjectTest {
     }
 
     @Test
-    public void testEquals() {
+    public void testEqualsEqualProjects() {
+        Project project1 = new Project();
         Project project2 = new Project();
         Person p = new Person(custId, name, email, street, city, vehicleId);
-        project.addPerson(p);
-        assertFalse(project.equals(project2));
-        assertFalse(project2.equals(p));
+
+        project1.addPerson(p);
         project2.addPerson(p);
-        assertTrue(project.equals(project2));
+
+        assertTrue(project1.equals(project2));
     }
 
     @Test
-    public void testEquals2() {
+    public void testEqualsNotEqualProjects() {
         Project project1 = new Project();
         Project project2 = new Project();
-        Person p = new Person(-1, name, email, street, city, vehicleId);
-        Person p1 = new Person(-1, name, email, street, city, vehicleId);
+        Project project3 = new Project();
+        Person p = new Person(0, "A", email, street, city, vehicleId);
+        Person p1 = new Person(1, "B", email, street, city, vehicleId);
+        Person p2 = new Person(2, "C", "lala@la.la", "A", "A", "123ABC");
+
         project1.addPerson(p);
         project2.addPerson(p1);
 
-
+        assertFalse(project1.equals(p));
         assertFalse(project1.equals(project2));
+        assertFalse(project1.equals(project3));
+        project2.addPerson(p2);
+        assertFalse(project1.equals(project2));
+        assertFalse(project2.equals(project1));
+        assertFalse(project2.equals(project3));
+
     }
 
     @Test
