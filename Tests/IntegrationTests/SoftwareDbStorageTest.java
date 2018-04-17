@@ -6,8 +6,6 @@ import no.ntnu.fp.model.Software;
 import no.ntnu.fp.storage.SoftwareDbStorage;
 import org.junit.Test;
 
-import java.sql.Connection;
-
 import static org.junit.Assert.*;
 
 public class SoftwareDbStorageTest {
@@ -21,6 +19,12 @@ public class SoftwareDbStorageTest {
         sw = new Software();
         swp = new SoftwarePanel(new FactoryProjectPanel());
     }
+
+    //The tests in these file are for the following requirement:
+    //The CM can enter new versions of existing software into the software
+    //archive. Each software component has a unique part number. Versioning is done by subnumbering.
+    //E.g. if a software component has part number 123456, then the first version
+    //has part number 123456.0, the next version has part number 123456.1 and so on.
 
     @Test
     public void testAddNewVersionOfExistingSw_incrementBy1() {
