@@ -73,5 +73,24 @@ public class SoftwareDbStorageTest {
         assertEquals(subId + 1, swDbStorage.getBiggestSubId(5));
 
     }
+    @Test
+    public void testAddNewSoftware_notInDb(){
+        SoftwarePanel swPanel = new SoftwarePanel(new FactoryProjectPanel());
+        SoftwareDbStorage swDbStorage = new SoftwareDbStorage();
+        Software newSw = new Software(10, 1, "swnew.no");
+
+        try{
+            swPanel.setModel(newSw);
+            swDbStorage.addSoftware(newSw,swPanel);
+            int swVersion  = 10;
+        }
+        catch (Exception e){
+
+        }
+        
+        assertTrue(swDbStorage.swInSwArchive(10));
+        //assertEquals(swVersion, newSw.getSwVersion());
+
+    }
 
 }
