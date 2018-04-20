@@ -13,7 +13,7 @@ public class EcuDbStorageTest {
     @Test
     public void testAddEcu_ShouldBeAdded(){
         EcuDbStorage ecuDbStorage = new EcuDbStorage();
-        SimpleEcu simpleEcu = new SimpleEcu(10,10);
+        SimpleEcu simpleEcu = new SimpleEcu(0,4);
         EcuPanel ecuPanelMock = mock(EcuPanel.class);
 
         String[] expectedMsg = {"Ecu added to database","ok"};
