@@ -48,20 +48,21 @@ public class VehicleDbStorageTest {
     public void TestUpdateVehicleConfigInfo() {
         //add vehicle
         TestVehicleDbStorage_add();
-        vehicleDbStorage.updateVehicle(veh);
-
-        //Vehicle vehicle2 = vehicleDbStorage.getVehicle(100);
         int ecuId = veh.getLargestEcuId();
         String vehID = "101";
 
+        //testing that veh is 101
         assertEquals(vehID,veh.getVehicleID());
+        //checking ecuID
         assertEquals(ecuId, veh.getLargestEcuId());
 
-
+        //Updating ecu on vehicle
         Ecu newEcu = new Ecu(ecuId + 1, 1, 2, true, 3);
         veh.addEcu(newEcu);
         vehicleDbStorage.updateVehicle(veh);
         int actualEcuID = veh.getLargestEcuId();
+
+        //testing that ecu is updated
         assertEquals((ecuId + 1), actualEcuID);
     }
 
