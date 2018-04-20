@@ -129,7 +129,7 @@ public class NWPEcuPanel extends JPanel implements ListSelectionListener, ListDa
 		add(c, constraints);
 	}
    
-	EcuListModel getModel() {
+	public EcuListModel getModel() {
         return model;
     }
 	

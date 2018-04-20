@@ -10,7 +10,7 @@ import javax.swing.AbstractListModel;
 import no.ntnu.fp.model.Ecu;
 import no.ntnu.fp.model.Vehicle;
 
-class EcuListModel extends AbstractListModel implements PropertyChangeListener {
+public class EcuListModel extends AbstractListModel implements PropertyChangeListener {
 	private static final long serialVersionUID = 1L;
 	/**
      * The data model that is wrapped
@@ -29,7 +29,7 @@ class EcuListModel extends AbstractListModel implements PropertyChangeListener {
      * @param project The underlying data model
      * @param url Path to save the data model
      */
-    EcuListModel(Vehicle project, URL url) {
+    public EcuListModel(Vehicle project, URL url) {
     		setVehicle(project);
     		setUrl(url);
     	}
@@ -58,7 +58,7 @@ class EcuListModel extends AbstractListModel implements PropertyChangeListener {
      * 
      * @return The underlying data model.
      */
-    Vehicle getProject() {
+    public Vehicle getProject() {
     		return vehicle;
     }
 
