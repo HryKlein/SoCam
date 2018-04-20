@@ -7,6 +7,8 @@ import no.ntnu.fp.model.Vehicle;
 import no.ntnu.fp.storage.FactoryDbStorage;
 import no.ntnu.fp.storage.VehicleDbStorage;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThat;
 
 import static org.junit.Assert.*;
 
@@ -18,17 +20,23 @@ public class VehicleDbStorageTest {
     NewVehiclePanel newVehiclePanel;
     FactoryDbStorage factoryDbStorage;
 
-    public VehicleDbStorageTest() {
+
+    // Service a vehicle. This consists of the following actions:
+    //• Update the vehicle’s configuration info
+    //• Update the vehicle’s configuration info in the vehicle database
+
+
+    public void TestVehicleDbStorage_add() {
         factoryDbStorage = new FactoryDbStorage();
         vehicleDbStorage = new VehicleDbStorage();
 
         //Set up Ecu
         ecu = new Ecu(50);
 
-        //Set up v
+        //Set up vehicle
         veh = new Vehicle();
         veh.addEcu(ecu);
-        veh.setVehicleID("30");
+        veh.setVehicleID("101");
 
 
         //Set up nvp
@@ -37,13 +45,24 @@ public class VehicleDbStorageTest {
     }
 
     @Test
-    public void updateVehicleConfigInfo() {
-        Vehicle vehicle = vehicleDbStorage.getVehicle(100);
-        int ecuId = vehicle.getLargestEcuId();
-        Ecu newEcu = new Ecu(ecuId + 1, 1, 2, true, 3);
-
+    public void TestUpdateVehicleConfigInfo() {
+        //add vehicle
+        TestVehicleDbStorage_add();
         vehicleDbStorage.updateVehicle(veh);
-        assertEquals(ecuId + 1, vehicleDbStorage.getVehicle(100).getLargestEcuId());
+
+        //Vehicle vehicle2 = vehicleDbStorage.getVehicle(100);
+        int ecuId = veh.getLargestEcuId();
+        String vehID = "101";
+
+        assertEquals(vehID,veh.getVehicleID());
+        assertEquals(ecuId, veh.getLargestEcuId());
+
+
+        Ecu newEcu = new Ecu(ecuId + 1, 1, 2, true, 3);
+        veh.addEcu(newEcu);
+        vehicleDbStorage.updateVehicle(veh);
+        int actualEcuID = veh.getLargestEcuId();
+        assertEquals((ecuId + 1), actualEcuID);
     }
 
 }
