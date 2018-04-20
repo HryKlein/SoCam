@@ -86,7 +86,7 @@ public class SoftwareDbStorage extends FactoryDbStorage implements Storage {
 				return message;
 			}
 			else{
-				message = "Software id allready in db, added new sub id";
+				message = "Software id already in db, added new sub id";
 				addNewMinorVersion(swId,url);
 				return message;
 			}
