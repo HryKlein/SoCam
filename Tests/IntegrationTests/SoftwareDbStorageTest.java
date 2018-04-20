@@ -77,19 +77,19 @@ public class SoftwareDbStorageTest {
     public void testAddNewSoftware_notInDb(){
         SoftwarePanel swPanel = new SoftwarePanel(new FactoryProjectPanel());
         SoftwareDbStorage swDbStorage = new SoftwareDbStorage();
-        Software newSw = new Software(10, 1, "swnew.no");
+        assertFalse(swDbStorage.swInSwArchive(11));
+        Software newSw = new Software(11, 1, "swnew.no");
 
         try{
             swPanel.setModel(newSw);
             swDbStorage.addSoftware(newSw,swPanel);
-            int swVersion  = 10;
         }
         catch (Exception e){
 
         }
         
-        assertTrue(swDbStorage.swInSwArchive(10));
-        //assertEquals(swVersion, newSw.getSwVersion());
+        assertTrue(swDbStorage.swInSwArchive(11));
+
 
     }
 
